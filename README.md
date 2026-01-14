@@ -1,4 +1,4 @@
-# Raport Tehnic - Platformer 2D (Unity)
+# Steel Horizon - Platformer 2D (Unity)
 
 ## 1. Introducere
 
