@@ -4,6 +4,17 @@
 
 **Platformer 2D** este o aplicație interactivă de tip joc video, dezvoltată utilizând motorul grafic Unity și limbajul de programare C#. Proiectul își propune să demonstreze competențe în dezvoltarea software orientată pe obiecte, gestionarea fizicii în timp real și designul interfeței cu utilizatorul (UI).
 
+![Gameplay Screenshot](screenshoots/Screenshoot_1.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_2.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_3.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_4.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_5.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_6.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_7.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_8.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_9.png)
+![Gameplay Screenshot](screenshoots/Screenshoot_10.png)
+
 ### 1.1 Obiectivul Aplicației
 Scopul principal al jucătorului este parcurgerea unei serii de niveluri cu dificultate progresivă. Pentru a finaliza un nivel, utilizatorul trebuie să îndeplinească două obiective strategice:
 1.  Neutralizarea tuturor inamicilor prezenți în scenă.
