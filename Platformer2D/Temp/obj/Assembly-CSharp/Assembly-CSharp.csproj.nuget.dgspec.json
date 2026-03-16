@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/vladshorodok/Desktop/home/University/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj": {}
+    "/Users/vladshorodok/Desktop/home/university/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj": {}
   },
   "projects": {
-    "/Users/vladshorodok/Desktop/home/University/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj": {
+    "/Users/vladshorodok/Desktop/home/university/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/vladshorodok/Desktop/home/University/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj",
+        "projectUniqueName": "/Users/vladshorodok/Desktop/home/university/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj",
         "projectName": "Assembly-CSharp",
-        "projectPath": "/Users/vladshorodok/Desktop/home/University/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj",
+        "projectPath": "/Users/vladshorodok/Desktop/home/university/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Assembly-CSharp.csproj",
         "packagesPath": "/Users/vladshorodok/.nuget/packages/",
-        "outputPath": "/Users/vladshorodok/Desktop/home/University/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Temp/obj/Assembly-CSharp/",
+        "outputPath": "/Users/vladshorodok/Desktop/home/university/Sementrul 5/EGC/Proiect/steel-horizon/Platformer2D/Temp/obj/Assembly-CSharp/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/vladshorodok/.nuget/NuGet/NuGet.Config"

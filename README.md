@@ -2,8 +2,7 @@
 
 ## 1. Introducere
 
-**Platformer 2D** este o aplicație interactivă de tip joc video, dezvoltată utilizând motorul grafic Unity și limbajul de programare C#. Proiectul își propune să demonstreze competențe în dezvoltarea software orientată pe obiecte, gestionarea fizicii în timp real și designul interfeței cu utilizatorul (UI).
-
+**Platformer 2D** is an interactive video game application, developed using the Unity graphics engine and the C# programming language. The project aims to demonstrate skills in object-oriented software development, real-time physics management, and user interface (UI) design.
 ![Gameplay Screenshot](screenshoots/Screenshoot_1.png)
 ![Gameplay Screenshot](screenshoots/Screenshoot_2.png)
 ![Gameplay Screenshot](screenshoots/Screenshoot_3.png)
@@ -15,93 +14,90 @@
 ![Gameplay Screenshot](screenshoots/Screenshoot_9.png)
 ![Gameplay Screenshot](screenshoots/Screenshoot_10.png)
 
-### 1.1 Obiectivul Aplicației
-Scopul principal al jucătorului este parcurgerea unei serii de niveluri cu dificultate progresivă. Pentru a finaliza un nivel, utilizatorul trebuie să îndeplinească două obiective strategice:
-1.  Neutralizarea tuturor inamicilor prezenți în scenă.
-2.  Recuperarea tuturor cheilor distribuite în nivel.
+### 1.1 Objective
+The main goal of the player is to complete a series of levels of increasing difficulty. To complete a level, the user must fulfill two strategic objectives:
+1. Neutralize all enemies present in the scene.
+2. Recover the keys distributed or protect the target in the level.
 
-## 2. Arhitectura Software
+## 2. Software Architecture
+The system is built on a modular architecture, using object-oriented programming (OOP) principles, especially **Inheritance** and **Polymorphism**, to ensure clean and extensible code.
 
-Sistemul este construit pe o arhitectură modulară, utilizând principiile programării orientate pe obiecte (OOP), în special **Moștenirea** și **Polimorfismul**, pentru a asigura un cod curat și extensibil.
+### 2.1 Class Hierarchy (Entity System)
+The core of the interaction is the abstract `Entity` class, which defines the fundamental behavior of any being in the game.
 
-### 2.1 Ierarhia de Clase (Entity System)
-Nucleul interacțiunii este clasa abstractă `Entity`, care definește comportamentul fundamental al oricărei ființe din joc.
+**`Entity` (Base Class)**
+* *Responsibilities*: Handles the core Unity components (`Rigidbody2D` for physics, `Animator` for animations), ground collision detection, and health.
+* *Key Methods*: `Damage()`, `Die()`, `HandleMovement()`, `HandleCollision()`.
+* **`Player` (Extends `Entity`)**
+* *Functionality*: Implements the logic specific to human control.
+* *Input System*: Processes keyboard input for horizontal movement, jumping, and attacks.
+* *UI Binding*: Updates the HUD (heart count and health bar) in real time.
+* **`Enemy` (Extends `Entity`)**
+* *Functionality*: Defines the basic behavior of enemies (player detection).
+* **`EnemyPatrol` (Extends `Enemy`)**
+* *Advanced AI*: Implements a simplified Finite State Machine (FSM):
+    1. **Patrol**: Move between two points (`leftEdge`, `rightEdge`).
+    2. **Idle**: Pause at the ends of the patrol route.
+    3. **Chase**: When the player enters the visual range (`chaseRange`), the enemy leaves its route to attack.
 
-*   **`Entity` (Clasă de Bază)**
-    *   *Responsabilități*: Gestionează componentele Unity esențiale (`Rigidbody2D` pentru fizică, `Animator` pentru animații), detectarea coliziunilor cu solul și sistemul de viață (health).
-    *   *Metode Cheie*: `Damage()`, `Die()`, `HandleMovement()`, `HandleCollision()`.
-*   **`Player` (Extinde `Entity`)**
-    *   *Functionalitate*: Implementează logica specifică controlului uman.
-    *   *Input System*: Procesează intrările de la tastatură pentru mișcare orizontală, sărituri și atacuri.
-    *   *UI Binding*: Actualizează în timp real HUD-ul (numărul de inimi și bara de energie).
-*   **`Enemy` (Extinde `Entity`)**
-    *   *Functionalitate*: Definește comportamentul de bază al inamicilor (detectarea jucătorului).
-*   **`EnemyPatrol` (Extinde `Enemy`)**
-    *   *AI Avansat*: Implementează un automat cu stări finite (FSM - Finite State Machine) simplificat:
-        1.  **Patrulare (Patrol)**: Mișcare între două puncte (`leftEdge`, `rightEdge`).
-        2.  **Repaus (Idle)**: Pauză la capetele rutei de patrulare.
-        3.  **Urmărire (Chase)**: Când jucătorul intră în raza vizuală (`chaseRange`), inamicul își părăsește ruta pentru a ataca.
+### 2.2 Design Patterns Used
+1. **Singleton**: Used for global managers that need to exist in a single instance and be accessible from anywhere.
+    * `ObjectiveManager.instance`: Centralizes game state (score, remaining enemies).
+    * `PauseMenu.instance`: Controls pause state and UI panels.
+    * `SceneController.instance`: Manages transitions between scenes.
+## 3. Technical Implementation and Gameplay
 
-### 2.2 Design Patterns Utilizate
-1.  **Singleton**: Folosit pentru managerii globali care trebuie să existe într-o singură instanță și să fie accesibili de oriunde.
-    *   `ObjectiveManager.instance`: Centralizează starea jocului (scor, inamici rămași).
-    *   `PauseMenu.instance`: Controlează starea de pauză și panourile UI.
-    *   `SceneController.instance`: Gestionează tranzițiile între scene.
+### 3.1 Combat System and Resources
+* **Health**: Implemented by `currentHealth`. It decreases with each hit. If it reaches 0, the entity calls `Die()`. Healing is done by `HealthPack`, which calls the `Heal()` method of `Player`.
+* **Energy**: Managed exclusively in the `Player` class.
+    * *Regeneration*: `RegenerateEnergy()` increases the value over time (`Time.deltaTime`).
+    * *Special Attack*: The `HandleSuperAttack()` method checks if the energy is maximum, triggers the animation, and then drains the energy in steps using a coroutine (`IEnumerator StepDrainEnergy`).
 
-## 3. Implementare Tehnică și Gameplay
+### 3.2 Artificial Intelligence (Enemy AI)
+The `EnemyPatrol.cs` script contains the detection logic.
+*   **Player Detection**: Uses `Physics2D.OverlapCircle` to check for the presence of the player within a defined radius.
+*   **Tracking Logic**: If the player is detected, the enemy calculates the direction (`target.position.x - transform.position.x`) and moves towards it. The platform boundaries are checked to prevent the enemy from falling.
 
-### 3.1 Sistemul de Luptă și Resurse
-*   **Viața (Health)**: Implementată prin `currentHealth`. La fiecare lovitură, aceasta scade. Dacă ajunge la 0, entitatea apelează `Die()`. Vindecarea se face prin `HealthPack`, care apelează metoda `Heal()` din `Player`.
-*   **Energia (Stamina)**: Gestionată exclusiv în clasa `Player`.
-    *   *Regenerare*: `RegenerateEnergy()` crește valoarea în timp (`Time.deltaTime`).
-    *   *Atac Special*: Metoda `HandleSuperAttack()` verifică dacă energia este maximă, declanșează animația și apoi consumă energia în trepte folosind o corutină (`IEnumerator StepDrainEnergy`).
+### 3.3 Environmental elements
+* **Moving Platforms**: The `MovingPlatforms.cs` script moves the platform between a series of points.
+    * *Parenting*: When the player touches the platform (`OnCollisionEnter2D`), it becomes the "child" of the platform's transform. This ensures that the player moves with the platform and does not slide.
 
-### 3.2 Inteligența Artificială (Enemy AI)
-Scriptul `EnemyPatrol.cs` conține logica de detectare.
-*   **Detectarea Jucătorului**: Folosește `Physics2D.OverlapCircle` pentru a verifica prezența jucătorului într-o rază definită.
-*   **Logica de Urmărire**: Dacă jucătorul este detectat, inamicul calculează direcția (`target.position.x - transform.position.x`) și se deplasează spre el. Se verifică limitele platformei pentru a preveni inamicul să cadă.
+## 4. User Interface
 
-### 3.3 Elemente de Mediu
-*   **Platforme Mobile**: Scriptul `MovingPlatforms.cs` mută platforma între o serie de puncte.
-    *   *Parenting*: Când jucătorul atinge platforma (`OnCollisionEnter2D`), devine "copilul" transform-ului platformei. Aceasta asigură că jucătorul se mișcă odată cu platforma și nu alunecă.
+The interface is built using Unity's UI system (Canvas).
 
-## 4. Interfața Utilizator (User Interface)
-
-Interfața este construită folosind sistemul UI din Unity (Canvas).
-
-### 4.1 Meniul Principal (Main Menu)
-*   Include opțiuni pentru **Volum** (Master, Music, SFX) conectate la un `AudioMixer`.
-*   Opțiune pentru **Ecran Complet / Fereastră**.
-*   Folosește `PlayerPrefs` pentru a salva preferințele utilizatorului între sesiuni.
+### 4.1 Main Menu
+* Includes options for **Volume** (Master, Music, SFX) connected to an `AudioMixer`.
+* Option for **Full Screen / Window**.
+* Uses `PlayerPrefs` to save user preferences between sessions.
 
 ### 4.2 HUD (Heads-Up Display)
-*   **Inimi**: Scriptul `Player` actualizează un array de imagini (`Image[] heartImages`), schimbând sprite-urile între "Full Heart" și "Empty Heart" în funcție de viața curentă.
-*   **Energie**: Similar, o bară segmentată care se umple/golește.
-*   **Contoare**: `ObjectiveManager` actualizează textul pentru inamici (ex: "3/5") și chei.
+* **Hearts**: The `Player` script updates an array of images (`Image[] heartImages`), switching sprites between "Full Heart" and "Empty Heart" depending on the current health.
+* **Energy**: Similarly, a segmented bar that fills/empties.
+* **Counters**: `ObjectiveManager` updates text for enemies (e.g. "3/5") and keys.
 
-### 4.3 Meniuri Contextuale
-Jocul gestionează mai multe panouri suprapuse, controlate de `PauseMenu.cs`:
-*   **Game Over**: Activată la moartea jucătorului. Oprește timpul (`Time.timeScale = 0`).
-*   **Level Complete**: Activată de `ObjectiveManager` când obiectivele sunt atinse.
-*   **Pauză**: Activată la apăsarea tastei `ESC`.
-
+### 4.3 Contextual Menus
+The game handles multiple overlapping panels, controlled by `PauseMenu.cs`:
+* **Game Over**: Triggered when the player dies. Stops time (`Time.timeScale = 0`).
+* **Level Complete**: Triggered by `ObjectiveManager` when objectives are achieved.
+* **Pause**: Triggered when the `ESC` key is pressed.
 ## 5. Instrucțiuni de Utilizare (Ghidul Jucătorului)
 
-### Controale
-| Acțiune | Tastă / Input | Descriere |
+### Controls
+| Action | Key / Input | Description |
 | :--- | :--- | :--- |
-| **Mișcare** | `A` / `D` | Deplasare stânga/dreapta |
-| **Săritură** | `Space` | Săritură verticală |
-| **Atac** | `Click Stânga` | Lovitură simplă cu sabia |
-| **Atac Special** | `Shift` + `Click` | Lovitură puternică (Doar cu energie full) |
-| **Pauză** | `ESC` | Deschide meniul de pauză |
+| **Move** | `A` / `D` | Move left/right |
+| **Jump** | `Space` | Vertical jump |
+| **Attack** | `Left Click` | Simple sword strike |
+| **Special Attack** | `Shift` + `Click` | Powerful strike (Full energy only) |
+| **Pause** | `ESC` | Open pause menu |
 
-### Fluxul Jocului
-1.  Start din **Main Menu** -> Selectare Nivel.
-2.  Explorare nivel, evitare capcane și inamici.
-3.  Uciderea inamicilor crește contorul de Kills.
-4.  Colectarea cheilor deblochează finalul.
-5.  La finalizare, se deblochează următorul nivel (progres salvat prin `PlayerPrefs`).
+### Game Flow
+1. Start from **Main Menu** -> Select Level.
+2. Explore the level, avoid traps and enemies.
+3. Killing enemies increases the Kills counter.
+4. Collecting keys unlocks the ending.
+5. Upon completion, the next level is unlocked (progress saved via `PlayerPrefs`).
 
-## 6. Concluzii
-Proiectul "Platformer 2D" reprezintă o implementare completă a unui ciclu de joc, integrând mecanici de fizică, inteligență artificială reactivă și un sistem robust de management al stării (UI și date salvate). Structura codului permite adăugarea ușoară de noi inamici, niveluri sau mecanici fără a modifica sistemele de bază.
+## 6. Conclusions
+The "2D Platformer" project represents a complete implementation of a game cycle, integrating physics mechanics, reactive artificial intelligence, and a robust state management system (UI and saved data). The code structure allows for easy addition of new enemies, levels, or mechanics without changing the core systems.
