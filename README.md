@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-**Platformer 2D** is an interactive video game application, developed using the Unity graphics engine and the C# programming language. The project aims to demonstrate skills in object-oriented software development, real-time physics management, and user interface (UI) design.
+**Steel Horizon** is an interactive video game application, developed using the Unity graphics engine and the C# programming language. The project aims to demonstrate skills in object-oriented software development, real-time physics management, and user interface (UI) design.
 ![Gameplay Screenshot](screenshoots/Screenshoot_1.png)
 ![Gameplay Screenshot](screenshoots/Screenshoot_2.png)
 ![Gameplay Screenshot](screenshoots/Screenshoot_3.png)
