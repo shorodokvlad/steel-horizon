@@ -3,16 +3,9 @@
 ## 1. Introduction
 
 **Steel Horizon** is an interactive video game application, developed using the Unity graphics engine and the C# programming language. The project aims to demonstrate skills in object-oriented software development, real-time physics management, and user interface (UI) design.
-![Gameplay Screenshot](screenshoots/Screenshoot_1.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_2.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_3.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_4.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_5.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_6.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_7.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_8.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_9.png)
-![Gameplay Screenshot](screenshoots/Screenshoot_10.png)
+[![Watch Gameplay Video](assets/Screenshoot_1.png)](https://drive.google.com/file/d/1BJgZmrd_QEHj0xIB09oNlOiJjNZn5jPe/view?usp=sharing)
+
+[ **Watch Gameplay Video**](https://drive.google.com/file/d/1BJgZmrd_QEHj0xIB09oNlOiJjNZn5jPe/view?usp=sharing)
 
 ### 1.1 Objective
 The main goal of the player is to complete a series of levels of increasing difficulty. To complete a level, the user must fulfill two strategic objectives:
@@ -81,7 +74,7 @@ The game handles multiple overlapping panels, controlled by `PauseMenu.cs`:
 * **Game Over**: Triggered when the player dies. Stops time (`Time.timeScale = 0`).
 * **Level Complete**: Triggered by `ObjectiveManager` when objectives are achieved.
 * **Pause**: Triggered when the `ESC` key is pressed.
-## 5. Instrucțiuni de Utilizare (Ghidul Jucătorului)
+## 5. Instructions for Use (Player's Guide)
 
 ### Controls
 | Action | Key / Input | Description |
